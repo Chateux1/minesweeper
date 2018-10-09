@@ -2,6 +2,8 @@ package com.company;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 public class Gui extends JFrame {
@@ -45,6 +47,12 @@ public class Gui extends JFrame {
         for (int row = 0; row < this.getRow(); row++) {
             for (int col = 0; col < this.getCol(); col++) {
                 Button tmp = new Button(row,col);
+                tmp.addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                        tmp.setText("pressed");
+                        tmp.setEnabled(false);
+                    }
+                });
                 listCol = new ArrayList<>();
                 listRow[row][col] = listCol;
                 listCol.add(tmp);
@@ -59,7 +67,7 @@ public class Gui extends JFrame {
         this.setMainPanel();
         JPanel gameContainer = new JPanel();
         gameContainer.add(gamePanel);
-        this.getContentPane().add(gameContainer, BorderLayout.CENTER);
+        this.getContentPane().add(gameContainer, BorderLayout.PAGE_END);
         this.setSettings();
     }
 
