@@ -14,10 +14,17 @@ public class Gui extends JFrame implements WindowListener,ActionListener {
     private JPanel gamePanel;
     public ArrayList<Button>[][] listRow;
     public ArrayList<Button> listCol;
+    private Icon errorIcon = UIManager.getIcon("OptionPane.errorIcon");
+    private Icon infoIcon = UIManager.getIcon("OptionPane.informationIcon");
+    private Icon warnIcon = UIManager.getIcon("OptionPane.warningIcon");
+
 
     public void actionPerformed(ActionEvent e) {
         System.out.println("Hello");
+        //listRow[row][col].get(0).setEnabled(false);
     }
+
+
     public void windowClosing(WindowEvent e) {
         dispose();
         System.exit(0);
@@ -56,9 +63,6 @@ public class Gui extends JFrame implements WindowListener,ActionListener {
         this.setLayout(new BorderLayout());
     }
 
-    public void setIcon() {
-
-    }
     public void setMainPanel() {
         gamePanel = new JPanel();
         GridLayout panelLayout = new GridLayout(this.getRow(),this.getCol());
@@ -68,7 +72,12 @@ public class Gui extends JFrame implements WindowListener,ActionListener {
             for (int col = 0; col < this.getCol(); col++) {
                 Button btn = new Button(row,col);
                 btn.addActionListener(this);
-                btn.getIcon();
+                btn.setIcon(infoIcon);
+                btn.setSelectedIcon(warnIcon);
+                btn.setFocusable(false);
+                btn.setContentAreaFilled(false);
+
+
                 listCol = new ArrayList<>();
                 listRow[row][col] = listCol;
                 listCol.add(btn);
