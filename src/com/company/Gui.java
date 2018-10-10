@@ -1,5 +1,6 @@
 package com.company;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -35,6 +36,7 @@ public class Gui extends JFrame implements ComponentListener, ItemListener {
         this.setSize(500,300);
         this.setVisible(true);
       //this.setResizable(false);
+
     }
 
     public void setLayout() {
@@ -53,6 +55,7 @@ public class Gui extends JFrame implements ComponentListener, ItemListener {
                     btn.addItemListener(new ItemListener() {
                         @Override
                         public void itemStateChanged(ItemEvent e) {
+
                             if (!btn.getIsClicked()) {
                                 System.out.println("Hi");
                                 btn.setSelected(true);
@@ -64,7 +67,8 @@ public class Gui extends JFrame implements ComponentListener, ItemListener {
                     });
                 }
                 btn.setIcon(infoIcon);
-                btn.setSelectedIcon(warnIcon);
+                btn.setDisabledIcon(warnIcon);
+                btn.setSelectedIcon(errorIcon);
                 btn.setFocusable(false);
                 btn.setContentAreaFilled(false);
                 btn.addItemListener(this);

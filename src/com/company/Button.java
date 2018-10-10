@@ -9,7 +9,7 @@ public class Button extends JToggleButton {
     private String id;
     private int mineCount, row, col;
     private boolean isMine;
-    private int buttonSize = 70;
+    private int buttonSize = 40;
     private boolean isClicked;
 
     public Button() {
@@ -18,7 +18,8 @@ public class Button extends JToggleButton {
     }
 
     public Button(int row, int col) {
-        super(String.valueOf(row)+String.valueOf(col));
+
+        //super(String.valueOf(row)+String.valueOf(col));
         this.row = row;
         this.col = col;
         this.mineCount = 0;
