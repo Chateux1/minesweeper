@@ -2,13 +2,10 @@ package com.company;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
+import java.awt.event.*;
 import java.util.ArrayList;
 
-public class Gui extends JFrame implements WindowListener,ActionListener {
+public class Gui extends JFrame implements ComponentListener, ItemListener {
 
     private int row, col;
     private JPanel gamePanel;
@@ -18,29 +15,10 @@ public class Gui extends JFrame implements WindowListener,ActionListener {
     private Icon infoIcon = UIManager.getIcon("OptionPane.informationIcon");
     private Icon warnIcon = UIManager.getIcon("OptionPane.warningIcon");
 
-
-    public void actionPerformed(ActionEvent e) {
-        System.out.println("Hello");
-        //listRow[row][col].get(0).setEnabled(false);
-    }
-
-
-    public void windowClosing(WindowEvent e) {
-        dispose();
-        System.exit(0);
-    }
-    public void windowOpened(WindowEvent e) {}
-    public void windowActivated(WindowEvent e) {}
-    public void windowIconified(WindowEvent e) {}
-    public void windowDeiconified(WindowEvent e) {}
-    public void windowDeactivated(WindowEvent e) {}
-    public void windowClosed(WindowEvent e) {}
-
     public Gui(int row, int col) {
         super("Minesweeper");
         this.row = row;
         this.col = col;
-        addWindowListener(this); // ???
     }
 
     public int getRow() {
@@ -71,12 +49,25 @@ public class Gui extends JFrame implements WindowListener,ActionListener {
         for (int row = 0; row < this.getRow(); row++) {
             for (int col = 0; col < this.getCol(); col++) {
                 Button btn = new Button(row,col);
-                btn.addActionListener(this);
+                if (!btn.getIsClicked()) {
+                    btn.addItemListener(new ItemListener() {
+                        @Override
+                        public void itemStateChanged(ItemEvent e) {
+                            if (!btn.getIsClicked()) {
+                                System.out.println("Hi");
+                                btn.setSelected(true);
+                                //btn.setEnabled(false);
+                            } else {
+                                btn.setIsClicked(true);
+                            }
+                        }
+                    });
+                }
                 btn.setIcon(infoIcon);
                 btn.setSelectedIcon(warnIcon);
                 btn.setFocusable(false);
                 btn.setContentAreaFilled(false);
-
+                btn.addItemListener(this);
 
                 listCol = new ArrayList<>();
                 listRow[row][col] = listCol;
@@ -96,4 +87,24 @@ public class Gui extends JFrame implements WindowListener,ActionListener {
         this.setSettings();
     }
 
+    @Override
+    public void componentResized(ComponentEvent e) {
+    }
+
+    @Override
+    public void componentMoved(ComponentEvent e) {
+    }
+
+    @Override
+    public void componentShown(ComponentEvent e) {
+    }
+
+    @Override
+    public void componentHidden(ComponentEvent e) {
+    }
+
+    @Override
+    public void itemStateChanged(ItemEvent e) {
+        System.out.println("Hello");
+    }
 }

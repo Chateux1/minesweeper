@@ -10,9 +10,11 @@ public class Button extends JToggleButton {
     private int mineCount, row, col;
     private boolean isMine;
     private int buttonSize = 70;
+    private boolean isClicked;
 
     public Button() {
         super("Empty");
+        this.isClicked = false;
     }
 
     public Button(int row, int col) {
@@ -61,5 +63,13 @@ public class Button extends JToggleButton {
 
     public int getButtonSize() {
         return this.buttonSize;
+    }
+
+    public boolean getIsClicked() {
+        return this.isClicked;
+    }
+
+    public void setIsClicked(boolean isClicked) {
+        this.isClicked = isClicked;
     }
 }
