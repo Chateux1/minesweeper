@@ -1,17 +1,15 @@
 package com.company;
 
-import java.awt.EventQueue;
-import java.awt.GridBagLayout;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JToggleButton;
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
+import javax.swing.*;
 
 public class Test {
+
+    private Icon infoIcon;
 
     public static void main(String[] args) {
         new Test();
@@ -37,6 +35,8 @@ public class Test {
         });
     }
 
+
+
     public class TestPane extends JPanel {
 
         public TestPane() {
@@ -45,6 +45,7 @@ public class Test {
                 add(createButton());
                 add(createButton());
                 add(createButton());
+
             } catch (IOException exp) {
                 exp.printStackTrace();
             }
@@ -56,24 +57,28 @@ public class Test {
             btn.setModel(new StickyModel());
             btn.setIcon(new ImageIcon(ImageIO.read(getClass().getResource("../../images/bomb.png"))));
             btn.setSelectedIcon(new ImageIcon(ImageIO.read(getClass().getResource("../../images/explode.png"))));
+            btn.setFocusPainted(false);
             return btn;
-
         }
 
     }
 
-    public class StickyModel extends JToggleButton.ToggleButtonModel {
 
-        public void reset() {
-            super.setSelected(false);
-        }
 
-        @Override
-        public void setSelected(boolean b) {
-            if (!isSelected()) {
-                super.setSelected(b);
+        public class StickyModel extends JToggleButton.ToggleButtonModel {
+
+            public void reset() {
+                super.setSelected(false);
             }
-        }
+
+            @Override
+            public void setSelected(boolean b) {
+
+                if (!isSelected()) {
+                    super.setSelected(b);
+                }
+
+            }
 
     }
 

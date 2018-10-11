@@ -1,6 +1,5 @@
 package com.company;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -14,7 +13,6 @@ public class Gui extends JFrame implements ComponentListener, ItemListener {
     public ArrayList<Button> listCol;
     private Icon errorIcon = UIManager.getIcon("OptionPane.errorIcon");
     private Icon infoIcon = UIManager.getIcon("OptionPane.informationIcon");
-    private Icon warnIcon = UIManager.getIcon("OptionPane.warningIcon");
 
     public Gui(int row, int col) {
         super("Minesweeper");
@@ -33,46 +31,33 @@ public class Gui extends JFrame implements ComponentListener, ItemListener {
     public void setSettings() {
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.pack();
-        this.setSize(500,300);
+        this.setSize(600,600);
         this.setVisible(true);
       //this.setResizable(false);
-
     }
 
     public void setLayout() {
-        this.setLayout(new BorderLayout());
+        this.setLayout(new GridBagLayout());
     }
 
     public void setMainPanel() {
         gamePanel = new JPanel();
         GridLayout panelLayout = new GridLayout(this.getRow(),this.getCol());
-        gamePanel.setLayout(panelLayout);
+        gamePanel.setLayout(null);
+        Insets insets = gamePanel.getInsets();
         listRow = new ArrayList[this.getRow()][this.getCol()];
         for (int row = 0; row < this.getRow(); row++) {
             for (int col = 0; col < this.getCol(); col++) {
                 Button btn = new Button(row,col);
-                if (!btn.getIsClicked()) {
-                    btn.addItemListener(new ItemListener() {
-                        @Override
-                        public void itemStateChanged(ItemEvent e) {
-
-                            if (!btn.getIsClicked()) {
-                                System.out.println("Hi");
-                                btn.setSelected(true);
-                                //btn.setEnabled(false);
-                            } else {
-                                btn.setIsClicked(true);
-                            }
-                        }
-                    });
-                }
+                btn.setBounds(row * btn.getButtonSize(),
+                        col * btn.getButtonSize(),
+                        btn.getButtonSize(),btn.getButtonSize());
+                btn.setModel(new ButtonModel());
                 btn.setIcon(infoIcon);
-                btn.setDisabledIcon(warnIcon);
                 btn.setSelectedIcon(errorIcon);
                 btn.setFocusable(false);
                 btn.setContentAreaFilled(false);
-                btn.addItemListener(this);
-
+                btn.setBorder(BorderFactory.createLineBorder(Color.BLACK));
                 listCol = new ArrayList<>();
                 listRow[row][col] = listCol;
                 listCol.add(btn);
@@ -87,7 +72,8 @@ public class Gui extends JFrame implements ComponentListener, ItemListener {
         this.setMainPanel();
         JPanel gameContainer = new JPanel();
         gameContainer.add(gamePanel);
-        this.getContentPane().add(gameContainer, BorderLayout.PAGE_END);
+        //this.getContentPane().add(gameContainer, BorderLayout.CENTER);
+        this.getContentPane().add(gameContainer);
         this.setSettings();
     }
 

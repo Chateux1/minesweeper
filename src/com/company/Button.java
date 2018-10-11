@@ -2,19 +2,16 @@ package com.company;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionListener;
 
 public class Button extends JToggleButton {
 
     private String id;
     private int mineCount, row, col;
     private boolean isMine;
-    private int buttonSize = 40;
-    private boolean isClicked;
+    private int buttonSize = 35;
 
     public Button() {
         super("Empty");
-        this.isClicked = false;
     }
 
     public Button(int row, int col) {
@@ -59,18 +56,11 @@ public class Button extends JToggleButton {
 
     private void setSize() {
         Dimension size = new Dimension(this.getButtonSize(),this.getButtonSize());
-        this.setPreferredSize(size);
+        this.setSize(size);
     }
 
     public int getButtonSize() {
         return this.buttonSize;
     }
 
-    public boolean getIsClicked() {
-        return this.isClicked;
-    }
-
-    public void setIsClicked(boolean isClicked) {
-        this.isClicked = isClicked;
-    }
 }
