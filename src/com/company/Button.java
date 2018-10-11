@@ -17,7 +17,7 @@ public class Button extends JToggleButton {
 
     public Button(int row, int col) {
 
-        //super(String.valueOf(row)+String.valueOf(col));
+        super(String.valueOf(row)+String.valueOf(col));
         this.row = row;
         this.col = col;
         this.mineCount = 0;
@@ -34,6 +34,14 @@ public class Button extends JToggleButton {
         this.mineCount = 0;
         this.isMine = false;
         this.setup();
+    }
+
+    public void setMineExpectancy(double mineExpectancy) {
+        this.mineExpectancy = mineExpectancy;
+    }
+
+    public double getMineExpectancy() {
+        return this.mineExpectancy;
     }
 
     public void setId(String id) {

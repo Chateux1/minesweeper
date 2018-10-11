@@ -3,6 +3,7 @@ package com.company;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class Gui extends JFrame implements ComponentListener, ItemListener {
@@ -10,7 +11,7 @@ public class Gui extends JFrame implements ComponentListener, ItemListener {
     private int row, col;
     private JPanel gamePanel;
     public ArrayList<ArrayList<Button>> table;
-    public ArrayList<Button> listCol;
+    public ArrayList<Button> listCol, listAll;
     private ImageIcon explodeIcon, bombIcon, buttonIcon;
     private int buttonSize = 40;
 
@@ -58,7 +59,9 @@ public class Gui extends JFrame implements ComponentListener, ItemListener {
 
         gamePanel = new JPanel();
         gamePanel.setLayout(null);
+        int counter = 0;
         this.table = new ArrayList<>();
+        this.listAll = new ArrayList<>();
 
         for (int row = 0; row < this.getRow(); row++) {
 
@@ -74,7 +77,10 @@ public class Gui extends JFrame implements ComponentListener, ItemListener {
                 btn.setSelectedIcon(this.explodeIcon);
 
                 this.listCol.add(btn);
+                this.listAll.add(listCol.get(col));
+                counter +=1;
                 gamePanel.add(this.listCol.get(col));
+
             }
             this.table.add(this.listCol);
         }
@@ -87,11 +93,21 @@ public class Gui extends JFrame implements ComponentListener, ItemListener {
             System.out.println();
             for (int j = 0; j < table.size(); j++) {
                 System.out.print("( ");
-                System.out.print(table.get(i).get(j).getRow());
-                System.out.print(", ");
-                System.out.print(table.get(i).get(j).isSelected());
+                //System.out.print(table.get(i).get(j).getRow());
+                //System.out.print(", ");
+                DecimalFormat numberFormat = new DecimalFormat("#.00");
+                double output = table.get(i).get(j).getMineExpectancy();
+                System.out.print(numberFormat.format(output));
                 System.out.print(" )  ");
             }
+        }
+    }
+
+    public void sortList() {
+        DecimalFormat numberFormat = new DecimalFormat("#.00");
+        for (int i = 0; i < this.listAll.size(); i++) {
+            double mineExpectancy = this.listAll.get(i).getMineExpectancy();
+            System.out.println(numberFormat.format(mineExpectancy));
         }
     }
 
