@@ -9,10 +9,10 @@ public class Gui extends JFrame implements ComponentListener, ItemListener {
 
     private int row, col;
     private JPanel gamePanel;
-    public ArrayList<Button>[][] listRow;
+    public ArrayList<ArrayList<Button>> table;
     public ArrayList<Button> listCol;
-    private Icon errorIcon = UIManager.getIcon("OptionPane.errorIcon");
-    private Icon infoIcon = UIManager.getIcon("OptionPane.informationIcon");
+    private ImageIcon explodeIcon, bombIcon, buttonIcon;
+    private int buttonSize = 40;
 
     public Gui(int row, int col) {
         super("Minesweeper");
@@ -31,49 +31,75 @@ public class Gui extends JFrame implements ComponentListener, ItemListener {
     public void setSettings() {
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.pack();
-        this.setSize(600,600);
         this.setVisible(true);
-      //this.setResizable(false);
+        this.setResizable(false);
     }
 
     public void setLayout() {
         this.setLayout(new GridBagLayout());
     }
 
+    public void setImages(int x, int y) {
+        ImageIcon bombIcon = new ImageIcon("images/bomb.png");
+        Image bombImage = bombIcon.getImage();
+        Image bombResizedImg = bombImage.getScaledInstance(x, y, Image.SCALE_DEFAULT);
+        this.bombIcon = new ImageIcon(bombResizedImg);
+        ImageIcon explodeIcon = new ImageIcon("images/explode.png");
+        Image explodeImage = explodeIcon.getImage();
+        Image explodeResizedImg = explodeImage.getScaledInstance(x, y, Image.SCALE_DEFAULT);
+        this.explodeIcon = new ImageIcon(explodeResizedImg);
+        ImageIcon buttonIcon = new ImageIcon("images/button.png");
+        Image buttonImage = buttonIcon.getImage();
+        Image buttonResizedImg = buttonImage.getScaledInstance(x, y, Image.SCALE_DEFAULT);
+        this.buttonIcon = new ImageIcon(buttonResizedImg);
+    }
+
     public void setMainPanel() {
+
         gamePanel = new JPanel();
-        GridLayout panelLayout = new GridLayout(this.getRow(),this.getCol());
         gamePanel.setLayout(null);
-        Insets insets = gamePanel.getInsets();
-        listRow = new ArrayList[this.getRow()][this.getCol()];
+        this.table = new ArrayList<>();
+
         for (int row = 0; row < this.getRow(); row++) {
+
+            this.listCol = new ArrayList<>();
             for (int col = 0; col < this.getCol(); col++) {
+
                 Button btn = new Button(row,col);
                 btn.setBounds(row * btn.getButtonSize(),
                         col * btn.getButtonSize(),
                         btn.getButtonSize(),btn.getButtonSize());
-                btn.setModel(new ButtonModel());
-                btn.setIcon(infoIcon);
-                btn.setSelectedIcon(errorIcon);
-                btn.setFocusable(false);
-                btn.setContentAreaFilled(false);
-                btn.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-                listCol = new ArrayList<>();
-                listRow[row][col] = listCol;
-                listCol.add(btn);
-                gamePanel.add(btn);
-                gamePanel.setPreferredSize(new Dimension(row * btn.getButtonSize(),col * btn.getButtonSize()));
+
+                btn.setIcon(this.buttonIcon);
+                btn.setSelectedIcon(this.explodeIcon);
+
+                this.listCol.add(btn);
+                gamePanel.add(this.listCol.get(col));
+            }
+            this.table.add(this.listCol);
+        }
+        gamePanel.setPreferredSize(new Dimension( (row + 1) * this.buttonSize,
+                                                  (col +1 ) * this.buttonSize));
+    }
+
+    public void printTable() {
+        for (int i = 0; i < table.get(0).size(); i++) {
+            System.out.println();
+            for (int j = 0; j < table.size(); j++) {
+                System.out.print("( ");
+                System.out.print(table.get(i).get(j).getRow());
+                System.out.print(", ");
+                System.out.print(table.get(i).get(j).isSelected());
+                System.out.print(" )  ");
             }
         }
     }
 
     public void showGui() {
         this.setLayout();
+        this.setImages(40,40);
         this.setMainPanel();
-        JPanel gameContainer = new JPanel();
-        gameContainer.add(gamePanel);
-        //this.getContentPane().add(gameContainer, BorderLayout.CENTER);
-        this.getContentPane().add(gameContainer);
+        this.add(gamePanel);
         this.setSettings();
     }
 

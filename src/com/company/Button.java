@@ -8,7 +8,8 @@ public class Button extends JToggleButton {
     private String id;
     private int mineCount, row, col;
     private boolean isMine;
-    private int buttonSize = 35;
+    private int buttonSize = 40;
+    private double mineExpectancy;
 
     public Button() {
         super("Empty");
@@ -21,6 +22,7 @@ public class Button extends JToggleButton {
         this.col = col;
         this.mineCount = 0;
         this.isMine = false;
+        this.mineExpectancy = Math.random();
         this.setup();
     }
 
@@ -52,11 +54,16 @@ public class Button extends JToggleButton {
 
     private void setup() {
         this.setSize();
+        this.setModel(new ButtonModel());
     }
 
     private void setSize() {
         Dimension size = new Dimension(this.getButtonSize(),this.getButtonSize());
         this.setSize(size);
+        this.setMargin(new Insets(0,0,0,0));
+        this.setFocusable(false);
+        this.setContentAreaFilled(false);
+        this.setBorder(BorderFactory.createLineBorder(Color.BLACK));
     }
 
     public int getButtonSize() {
