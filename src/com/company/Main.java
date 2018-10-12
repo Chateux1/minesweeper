@@ -1,22 +1,23 @@
 package com.company;
 
-import java.text.DecimalFormat;
 import java.util.Collections;
 
 public class Main {
 
+    private static Gui gui;
+
     public static void main(String[] args) {
 
-        Gui gui = new Gui(5, 5);
+        gui = new Gui(3, 3, 4);
         gui.showGui();
-        gui.printTable();
 
-        System.out.println();
-        gui.sortList();
-        System.out.println();
-        Collections.sort(gui.listAll, new CompareMineExpectancies());
-        gui.sortList();
+        gui.printHash();
         gui.printTable();
+        gui.printList();
 
+        gui.setMines();
+        gui.printTable();
+        gui.printList();
+        gui.printHash();
     }
 }

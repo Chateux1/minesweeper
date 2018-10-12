@@ -3,19 +3,16 @@ package com.company;
 import java.util.ArrayList;
 import java.util.Comparator;
 
-public class CompareMineExpectancies implements Comparator<Button> {
+public class CompareMineExpectancies implements Comparator<ArrayList<String>> {
 
-    private ArrayList<Button> buttonList;
+    private ArrayList<ArrayList<String>> listExpectancies;
 
     public CompareMineExpectancies() {
-        buttonList = new ArrayList<Button>();
+        listExpectancies = new ArrayList<>();
     }
 
     @Override
-    public int compare(Button b1, Button b2) {
-        if (b1.getMineExpectancy() >= b2.getMineExpectancy())
-            return 1;
-        else
-            return -1;
+    public int compare(ArrayList<String> list1, ArrayList<String> list2) {
+        return list1.get(0).compareTo(list2.get(0));
     }
 }
