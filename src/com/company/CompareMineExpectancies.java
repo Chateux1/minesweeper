@@ -13,6 +13,6 @@ public class CompareMineExpectancies implements Comparator<ArrayList<String>> {
 
     @Override
     public int compare(ArrayList<String> list1, ArrayList<String> list2) {
-        return list1.get(0).compareTo(list2.get(0));
+        return list2.get(1).compareTo(list1.get(1));
     }
 }
