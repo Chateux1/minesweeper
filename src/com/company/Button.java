@@ -5,6 +5,7 @@ import java.awt.*;
 
 public class Button extends JToggleButton {
 
+    private int test = 10;
     private String id;
     private int mineCount, row, col;
     private boolean isMine;
