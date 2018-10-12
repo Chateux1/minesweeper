@@ -2,28 +2,31 @@ package com.company;
 
 import javax.swing.*;
 import java.awt.*;
+import java.text.DecimalFormat;
 
 public class Button extends JToggleButton {
 
-    private String id;
-    private int mineCount, row, col;
+    private int id;
+    private int minesAround, row, col;
     private boolean isMine;
     private int buttonSize = 40;
     private double mineExpectancy;
+    private final DecimalFormat numberFormat = new DecimalFormat("#.000");
 
     public Button() {
         super("Empty");
     }
 
-    public Button(int row, int col) {
+    public Button(int row, int col, int id) {
 
-        super(String.valueOf(row)+String.valueOf(col));
+        //super(String.valueOf(row)+String.valueOf(col));
         this.row = row;
         this.col = col;
-        this.mineCount = 0;
+        this.minesAround = 0;
         this.isMine = false;
-        this.mineExpectancy = Math.random();
+        this.mineExpectancy = Double.parseDouble(numberFormat.format(Math.random()));
         this.setup();
+        this.id = id;
     }
 
     public Button(String id, int row, int col) {
@@ -31,7 +34,7 @@ public class Button extends JToggleButton {
         super(id);
         this.row = row;
         this.col = col;
-        this.mineCount = 0;
+        this.minesAround = 0;
         this.isMine = false;
         this.setup();
     }
@@ -40,15 +43,23 @@ public class Button extends JToggleButton {
         this.mineExpectancy = mineExpectancy;
     }
 
+    public void setMine() {
+        this.isMine = true;
+    }
+
+    public boolean getMine() {
+        return this.isMine;
+    }
+
     public double getMineExpectancy() {
         return this.mineExpectancy;
     }
 
-    public void setId(String id) {
-        this.id = String.valueOf(this.getRow())+String.valueOf(this.getCol());
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public String getId() {
+    public int getId() {
         return this.id;
     }
 
