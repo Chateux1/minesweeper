@@ -8,14 +8,14 @@ public class Main {
 
     public static void main(String[] args) {
 
-        gui = new Gui(3, 3, 4);
+        gui = new Gui(20, 10, 100);
         gui.showGui();
 
         gui.printHash();
         gui.printTable();
         gui.printList();
 
-        gui.setMines();
+        //gui.setMines();
         gui.printTable();
         gui.printList();
         gui.printHash();

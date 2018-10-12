@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 
-public class Gui extends JFrame implements ComponentListener, ItemListener {
+public class Gui extends JFrame {
 
     private int row, col, mineCount;
     private JPanel gamePanel;
@@ -32,12 +32,22 @@ public class Gui extends JFrame implements ComponentListener, ItemListener {
     }
 
     public void showGui() {
-        this.setLayout();
-        this.setImages(40,40);
+        this.setLayout(new GridBagLayout());
+//        GridBagConstraints gamePanelConstraints = new GridBagConstraints();
+//        System.out.println(gamePanelConstraints.gridx);
+//        gamePanelConstraints.gridx = 100;
+//        gamePanelConstraints.fill = GridBagConstraints.HORIZONTAL;
+        this.setImages(this.buttonSize,this.buttonSize);
         this.setButtonList();
+        this.setMines();
         this.setMainPanel();
         this.add(gamePanel);
-        this.setSettings();
+        this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        this.setSize((row) * this.buttonSize + 100,
+                (col) * this.buttonSize + 100);
+        //this.pack();
+        this.setVisible(true);
+        //this.setResizable(false);
     }
 
     public void setImages(int x, int y) {
@@ -82,15 +92,8 @@ public class Gui extends JFrame implements ComponentListener, ItemListener {
         this.sortList();
         for (int i = 0; i < this.getMineCount(); i++) {
             int id = Integer.parseInt(this.listButtonOuter.get(i).get(0));
-            table1.get(id).setMine();
+            this.table1.get(id).setMine();
         }
-    }
-
-    public void setSettings() {
-        this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-        this.pack();
-        this.setVisible(true);
-        this.setResizable(false);
     }
 
     public void printHash() {
@@ -102,16 +105,12 @@ public class Gui extends JFrame implements ComponentListener, ItemListener {
         }
     }
 
-    public void setLayout() {
-        this.setLayout(new GridBagLayout());
-    }
-
     public void setMainPanel() {
 
         gamePanel = new JPanel();
         gamePanel.setLayout(null);
         int counter = 0;
-        this.setImages(40,40);
+        //this.setImages(40,40);
 
         for (int row = 0; row < this.getRow(); row++) {
 
@@ -122,13 +121,17 @@ public class Gui extends JFrame implements ComponentListener, ItemListener {
                         col * btn.getButtonSize(),
                         btn.getButtonSize(),btn.getButtonSize());
                 btn.setIcon(this.listIcons.get(0));
-                btn.setSelectedIcon(this.listIcons.get(2));
+                if (btn.getMine()) {
+                    btn.setSelectedIcon(this.listIcons.get(1));
+                } else {
+                    btn.setSelectedIcon(this.listIcons.get(2));
+                }
                 gamePanel.add(btn);
                 counter +=1;
             }
         }
-        gamePanel.setPreferredSize(new Dimension( (row + 1) * this.buttonSize,
-                                                  (col +1 ) * this.buttonSize));
+        gamePanel.setPreferredSize(new Dimension( (row) * this.buttonSize,
+                                                  (col) * this.buttonSize));
     }
 
     public void printList() {
@@ -166,26 +169,5 @@ public class Gui extends JFrame implements ComponentListener, ItemListener {
 
     public int getMineCount() {
         return this.mineCount;
-    }
-
-    @Override
-    public void componentResized(ComponentEvent e) {
-    }
-
-    @Override
-    public void componentMoved(ComponentEvent e) {
-    }
-
-    @Override
-    public void componentShown(ComponentEvent e) {
-    }
-
-    @Override
-    public void componentHidden(ComponentEvent e) {
-    }
-
-    @Override
-    public void itemStateChanged(ItemEvent e) {
-        System.out.println("Hello");
     }
 }
