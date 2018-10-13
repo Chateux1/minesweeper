@@ -51,6 +51,14 @@ public class Button extends JToggleButton {
         return this.isMine;
     }
 
+    public void setMinesAround (int minesAround) {
+        this.minesAround = minesAround;
+    }
+
+    public int getMinesAround() {
+        return this.minesAround;
+    }
+
     public double getMineExpectancy() {
         return this.mineExpectancy;
     }

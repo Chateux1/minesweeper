@@ -31,6 +31,15 @@ public class Gui extends JFrame {
         this.mineCount = mineCount;
     }
 
+//    public void setMinesAround () {
+//        for (int id = 0; id < table1.size(); id++) {
+//            Button btn = table1.get(id);
+//            if (btn.getRow() == 0 && btn.getCol() == 0) {
+//
+//            }
+//        }
+//    }
+
     public void showGui() {
         this.setLayout(new GridBagLayout());
 //        GridBagConstraints gamePanelConstraints = new GridBagConstraints();
@@ -43,11 +52,12 @@ public class Gui extends JFrame {
         this.setMainPanel();
         this.add(gamePanel);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        this.pack();
         this.setSize((row) * this.buttonSize + 100,
                 (col) * this.buttonSize + 100);
-        //this.pack();
+
         this.setVisible(true);
-        //this.setResizable(false);
+        this.setResizable(false);
     }
 
     public void setImages(int x, int y) {
