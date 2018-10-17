@@ -2,7 +2,6 @@ package com.company;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -85,7 +84,7 @@ public class Gui extends JFrame {
 
                 this.table1.put(id, new Button(i, j, id));
                 this.listButtonInner = new ArrayList<>();
-                this.listButtonInner.add(Integer.toString(this.table1.get(id).getId()));
+                this.listButtonInner.add(Integer.toString(this.table1.get(id).getIntId()));
                 this.listButtonInner.add(Double.toString(this.table1.get(id).getMineExpectancy()));
                 this.listButtonOuter.add(this.listButtonInner);
                 id += 1;

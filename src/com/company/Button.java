@@ -5,11 +5,12 @@ import java.awt.*;
 import java.text.DecimalFormat;
 
 public class Button extends JToggleButton {
-
-    private int id;
+// lol haxxed
+    private int intId;
+    private String strId;
     private int minesAround, row, col;
     private boolean isMine;
-    private int buttonSize = 40;
+    private int buttonSize = 20;
     private double mineExpectancy;
     private final DecimalFormat numberFormat = new DecimalFormat("#.000");
 
@@ -26,7 +27,7 @@ public class Button extends JToggleButton {
         this.isMine = false;
         this.mineExpectancy = Double.parseDouble(numberFormat.format(Math.random()));
         this.setup();
-        this.id = id;
+        this.intId = id;
     }
 
     public Button(String id, int row, int col) {
@@ -63,12 +64,12 @@ public class Button extends JToggleButton {
         return this.mineExpectancy;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setIntId(int intId) {
+        this.intId = intId;
     }
 
-    public int getId() {
-        return this.id;
+    public int getIntId() {
+        return this.intId;
     }
 
     public int getRow() {
