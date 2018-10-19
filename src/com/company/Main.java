@@ -27,5 +27,6 @@ public class Main {
         MVC_Model m = new MVC_Model();
         MVC_View v = new MVC_View(m);
         new MVC_Controller(v, m,15,15);
+        System.out.println("Test");
     }
 }
